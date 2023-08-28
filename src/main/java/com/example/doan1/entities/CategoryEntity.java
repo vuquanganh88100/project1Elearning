@@ -3,17 +3,25 @@ package com.example.doan1.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Data
 @Entity
 @Table(name="courses",schema = "doan1",catalog = "")
 public class CategoryEntity {
-    private int courseId;
-    private String courseName;
-    private String courseImage;
     @Id
     @Column(name = "course_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int courseId;
+    @Basic
+    @Column(name = "course_name")
+    private String courseName;
+    @Basic
+    @Column(name = "course_image")
+    private String courseImage;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<LectureEntity> lectureEntityList = new ArrayList<>();
     public int getCourseId() {
         return courseId;
     }
@@ -21,8 +29,7 @@ public class CategoryEntity {
     public void setCourseId(int courseId) {
         this.courseId = courseId;
     }
-    @Basic
-    @Column(name = "course_name")
+
     public String getCourseName() {
         return courseName;
     }
@@ -30,8 +37,6 @@ public class CategoryEntity {
     public void setCourseName(String courseName) {
         this.courseName = courseName;
     }
-    @Basic
-    @Column(name = "course_image")
     public String getCourseImage() {
         return courseImage;
     }

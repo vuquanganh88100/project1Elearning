@@ -24,7 +24,6 @@ public class AdminController {
         model.addAttribute("categoryDto", new CategoryDto());
         return "/jsp/category.jsp";
     }
-
     @PostMapping(value = "save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String save(@ModelAttribute("categoryDto") CategoryDto categoryDto, BindingResult bindingResult, Model model,
                        RedirectAttributes redirectAttributes) throws IOException {
@@ -38,4 +37,5 @@ public class AdminController {
 
         return "redirect:/study/home";
     }
+
 }
