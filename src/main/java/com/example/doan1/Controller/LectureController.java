@@ -43,16 +43,5 @@ public class LectureController {
         // Use the correct redirect URL
         return "redirect:/study/admin/backend/lecture/upload";
     }
-    @GetMapping("/course/{courseId}")
-    public String showCourseDetails(@PathVariable Integer courseId, Model model) {
-        CategoryDto courseDto = categoryService.getCategoryDtoById(courseId);
-        List<LectureDto> lectures = lectureService.getLecturesByCourseId(courseId);
-
-        model.addAttribute("courseDto", courseDto);
-        model.addAttribute("lectures", lectures);
-
-        return"/jsp/lecture.jsp"; // Return the JSP page name without the prefix/suffix
-    }
-
 
 }

@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <section class="section-products">
@@ -34,9 +33,12 @@
                         <div class="part-1">
                             <img width="290px" height="350px" src="/images/${s.courseImage}" alt="Product Image">
                         </div>
+                        <a href="${pageContext.request.contextPath}/study/home/course/${s.courseId}">
+
                         <div class="part-2">
                             <h3 class="product-title">${s.courseName}</h3>
                         </div>
+                        </a>
                     </div>
                 </div>
             </c:forEach>

@@ -1,3 +1,9 @@
+<%@page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"
+           prefix="fn" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -189,7 +195,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Collection of nav links, forms, and other content for toggling -->
-    <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
+    <div id="navbarCollapse" class="collapse navbar-collapse">
         <div class="navbar-nav">
             <a href="#" class="nav-item nav-link">Home</a>
             <div class="nav-item dropdown">
@@ -204,25 +210,38 @@
             <a href="#" class="nav-item nav-link">Blog</a>
             <a href="#" class="nav-item nav-link">Contact</a>
         </div>
-        <form class="navbar-form form-inline">
+        <form class="form-inline ml-auto">
             <div class="input-group search-box">
                 <input type="text" id="search" class="form-control" placeholder="Search here...">
                 <div class="input-group-append">
-					<span class="input-group-text">
-						<i class="material-icons">&#xE8B6;</i>
-					</span>
+                    <span class="input-group-text">
+                        <i class="material-icons">&#xE8B6;</i>
+                    </span>
                 </div>
             </div>
         </form>
-        <div class="navbar-nav ml-auto action-buttons">
-            <div class="nav-item dropdown">
-                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4" onclick="window.location.href='/study/login'">Login</a>
+        <sec:authorize access="!isAuthenticated()">
+            <div class="navbar-nav ml-auto action-buttons">
+                <div class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4" onclick="window.location.href='/study/home/login'">Login</a>
+                </div>
+                <div class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn"onclick="window.location.href='/study/home/signup'">Sign up</a>
+                </div>
             </div>
+        </sec:authorize>
+        <sec:authorize access="isAuthenticated()">
             <div class="nav-item dropdown">
-                <a href="#" data-toggle="dropdown" class="btn btn-primary dropdown-toggle sign-up-btn"onclick="window.location.href='/study/signup'">Sign up</a>
+                <a href="#" data-toggle="dropdown" class="nav-link dropdown-toggle mr-4" aria-expanded="false">${fn:substring(pageContext.request.userPrincipal.name, 0, 3)}</a>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown1111">
+                    <li><a class="dropdown-item" href="/backend/user/change-pass">Đổi mật khẩu</a></li>
+                    <li><a class="dropdown-item" href="/backend/brand/category">Thông tin tài khoản</a></li>
+                    <li><a class="dropdown-item" href="/study/home/logout">Đăng xuất</a></li>
+                </ul>
             </div>
-        </div>
+        </sec:authorize>
     </div>
 </nav>
+
 </body>
 </html>

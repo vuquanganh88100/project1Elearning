@@ -1,6 +1,7 @@
 package com.example.doan1.Controller;
 
 import com.example.doan1.Service.CategoryService;
+import com.example.doan1.Service.UserService;
 import com.example.doan1.dto.CategoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,6 +25,12 @@ public class AdminController {
         model.addAttribute("categoryDto", new CategoryDto());
         return "/jsp/category.jsp";
     }
+    @GetMapping("home")
+    public String signup(Model model) {
+        model.addAttribute("title","tạo mới tài khoản");
+
+        return "/jsp/admin.jsp";
+    }
     @PostMapping(value = "save", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String save(@ModelAttribute("categoryDto") CategoryDto categoryDto, BindingResult bindingResult, Model model,
                        RedirectAttributes redirectAttributes) throws IOException {
@@ -32,10 +39,27 @@ public class AdminController {
         }
         categoryService.save(categoryDto);
 
-        redirectAttributes.addFlashAttribute("message", "Tạo bài nhạc thành công!");
+        redirectAttributes.addFlashAttribute("message", "Tạo  thành công!");
         redirectAttributes.addFlashAttribute("list", categoryDto); // Add the list attribute
 
         return "redirect:/study/home";
+    }
+    @Autowired
+    UserService userService;
+    @GetMapping("/user/list")// Phương thức Get: Lấy dữ liệu ==> load trang ra dự form có sẵn trước
+//    @ResponseBody// trả về dạng json
+    public String list(Model model,
+                       @RequestParam(name = "name",
+                               required = false) String name){
+        //model: chuyền biến từ java -> jsp
+
+        Object obj= null;
+        if(name==null){
+            obj=userService.findAll();
+        }
+        model.addAttribute("title", name);
+        model.addAttribute("user", obj);
+        return "/jsp/userlist.jsp";
     }
 
 }

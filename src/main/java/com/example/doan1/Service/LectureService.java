@@ -19,6 +19,7 @@ public class LectureService {
 
     @Autowired
     CategoryRepository categoryRepository;
+
     public List<LectureDto> getLecturesByCourseId(Integer courseId) {
         List<LectureEntity> lectureEntities = lectureRepository.findByCategory_CourseId(courseId);
         return convertToDtoList(lectureEntities);
@@ -48,7 +49,7 @@ public class LectureService {
         lectureEntity.setVideoUrl(lectureDto.getVideoUrl());
 
         // Set the associated category (course)
-        CategoryEntity category = categoryRepository.getReferenceById(lectureDto.getCourseId());
+        CategoryEntity category = categoryRepository.getById(lectureDto.getCourseId());
         lectureEntity.setCategory(category);
 
         lectureRepository.save(lectureEntity);

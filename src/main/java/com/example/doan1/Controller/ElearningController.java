@@ -1,18 +1,26 @@
 package com.example.doan1.Controller;
 
 import com.example.doan1.Service.CategoryService;
+import com.example.doan1.Service.LectureService;
+import com.example.doan1.Service.UserService;
+import com.example.doan1.dto.CategoryDto;
+import com.example.doan1.dto.LectureDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller// nếu return về jsp thì phải dùng controlelr
 @RequestMapping("/study")
 public class ElearningController {
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private LectureService lectureService;
+    @Autowired
+    private UserService userService;
     @GetMapping("home")
     public String list(Model model,
                        @RequestParam(name = "name",
@@ -26,12 +34,27 @@ public class ElearningController {
         model.addAttribute("list", obj);
         return "/jsp/home.jsp";
     }
-    @GetMapping("login")
-    public String login() {
+    @GetMapping("/home/course/{courseId}")
+    public String showCourseDetails(@PathVariable Integer courseId, Model model) {
+        CategoryDto courseDto = categoryService.getCategoryDtoById(courseId);
+        List<LectureDto> lectures = lectureService.getLecturesByCourseId(courseId);
+
+        model.addAttribute("courseDto", courseDto);
+        model.addAttribute("lectures", lectures);
+
+        return"/jsp/lecture.jsp"; // Return the JSP page name without the prefix/suffix
+    }
+    @GetMapping("/home/login")
+    public String login(@RequestParam(name = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("loginError", true);
+        }
         return "/jsp/login.jsp";
     }
-    @GetMapping("signup")
-    public String signup() {
+    @GetMapping("/home/signup")
+    public String signup(Model model) {
+        model.addAttribute("title","tạo mới tài khoản");
+
         return "/jsp/signup.jsp";
     }
 }

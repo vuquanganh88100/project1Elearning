@@ -1,3 +1,7 @@
+<%@page pageEncoding="utf-8" %>
+<%@taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -105,27 +109,39 @@
 </head>
 <body>
 <div class="signup-form">
-    <form action="/examples/actions/confirmation.php" method="post">
+    <form action="/study/home/signup/save" method="post" onsubmit="return validateForm()">
         <h2>Register</h2>
         <p class="hint-text">Create your account. It's free and only takes a minute.</p>
         <div class="form-group">
             <div class="row">
-                <div class="col"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
-                <div class="col"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
+                <div class="col"><input type="text" class="form-control" name="userName" placeholder="Name" required="required"></div>
             </div>
         </div>
         <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+            <input type="email" class="form-control" name="userEmail" placeholder="Email" required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Password" required="required">
         </div>
         <div class="form-group">
-            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password" required="required">
+            <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm Password" required="required">
+        </div>
+        <div class="form-group">
+            <p style="color: #444444" >Choose a role</p>
+            <select name="userType" >
+                <option value="admin">Teacher</option>
+                <option value="user">Student</option>
+            </select>
         </div>
         <div class="form-group">
             <label class="form-check-label"><input type="checkbox" required="required"> I accept the <a href="#">Terms of Use</a> &amp; <a href="#">Privacy Policy</a></label>
         </div>
+        <!-- Display error message -->
+        <c:if test="${not empty error}">
+            <div class="alert alert-danger" role="alert">
+                    ${error}
+            </div>
+        </c:if>
         <div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
         </div>
@@ -134,3 +150,20 @@
 </div>
 </body>
 </html>
+<script>
+    function validateForm() {
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirm_password").value;
+
+        if (password !== confirmPassword) {
+            document.getElementById("confirm_password").setCustomValidity("Passwords do not match");
+            return false;
+        } else {
+            document.getElementById("confirm_password").setCustomValidity("");
+            return true;
+        }
+    }
+    document.getElementById("confirm_password").addEventListener("input", function () {
+        this.setCustomValidity("");
+    });
+</script>
