@@ -22,6 +22,8 @@ public class CategoryEntity {
     private String courseImage;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<LectureEntity> lectureEntityList = new ArrayList<>();
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<QuizEntity> quizEntityList=new ArrayList<>();
     public int getCourseId() {
         return courseId;
     }

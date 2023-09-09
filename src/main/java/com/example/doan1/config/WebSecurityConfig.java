@@ -24,9 +24,8 @@ public class WebSecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeRequests(authorizeRequests -> authorizeRequests
-//                        .requestMatchers(adminRequestMatcher()).authenticated() // Use adminRequestMatcher for path matching
-                        .requestMatchers(adminRequestMatcher()).hasRole("admin")
-                        .requestMatchers(userRequestMatcher()).hasAnyRole("admin","user")
+//                        .requestMatchers(adminRequestMatcher()).hasRole("admin")
+//                        .requestMatchers(userRequestMatcher()).hasAnyRole("admin","user")
                         .anyRequest().permitAll()
                 )
                 .formLogin((form) -> form
