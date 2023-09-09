@@ -3,13 +3,13 @@ package com.example.doan1.Service;
 import com.example.doan1.dto.UserDto;
 import com.example.doan1.entities.UserEntity;
 import com.example.doan1.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -27,6 +27,13 @@ public class UserService {
         userEntity.setUserType(userDto.getUserType());
         userRepository.save(userEntity);
         return "Tao moi tai khoan thanh cong ";
+    }
+    public Integer getUserId(String userEmail) {
+        UserEntity userEntity = userRepository.findFirstByUserEmail(userEmail);
+        if (userEntity != null) {
+            return userEntity.getUserId();
+        }
+        return null; // Handle the case when the user is not found
     }
 
     public List<UserEntity> findAll(){

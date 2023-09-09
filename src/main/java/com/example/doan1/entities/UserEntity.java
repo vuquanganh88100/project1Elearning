@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Generated;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -22,7 +24,8 @@ public class UserEntity {
     private String password;
     @Column(name="user_type")
     private String userType;
-
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<AnswerEntity> answerEntities = new ArrayList<>();
     public int getUserId() {
         return userId;
     }

@@ -33,7 +33,7 @@
                         <div class="part-1">
                             <img width="290px" height="350px" src="/images/${s.courseImage}" alt="Product Image">
                         </div>
-                        <a href="${pageContext.request.contextPath}/study/home/course/${s.courseId}">
+                        <a href="${pageContext.request.contextPath}/study/home/course${s.courseId}">
 
                         <div class="part-2">
                             <h3 class="product-title">${s.courseName}</h3>

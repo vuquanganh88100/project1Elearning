@@ -48,10 +48,10 @@
                 ><i class="fas fa-lock fa-fw me-3"></i><span>LECTURE</span></a
                 >
                 <a href="#" class="list-group-item list-group-item-action py-2 ripple"
-                ><i class="fas fa-chart-line fa-fw me-3"></i><span>Analytics</span></a
+                ><i class="fas fa-chart-line fa-fw me-3"></i><span>Quiz</span></a
                 >
                 <a href="#" class="list-group-item list-group-item-action py-2 ripple">
-                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>SEO</span>
+                    <i class="fas fa-chart-pie fa-fw me-3"></i><span>Exam</span>
                 </a>
                 <a href="#" class="list-group-item list-group-item-action py-2 ripple"
                 ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Orders</span></a
